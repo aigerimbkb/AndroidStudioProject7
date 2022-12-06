@@ -20,6 +20,11 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
+
 import javax.net.ssl.SSLContext;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,10 +79,16 @@ public class MainActivity extends AppCompatActivity {
                       String name = author.getString("name");
                       String email = author.getString("email");
                       String date = author.getString("date");
+                    
+                      DateFormat df_GH = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                      DateFormat df_KZ = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                      df_GH.setTimeZone(TimeZone.getTimeZone("UTC"));
+                      String date2 = df_KZ.format(df_GH.parse(date));
+       
                       textView.append("Обновление: " + "\n");
                       textView.append("Имя: " + name + "\n");
                       textView.append("Почта: " + email + "\n");
-                      textView.append("Дата: " + date + "\n");
+                      textView.append("Дата: " + date2 + "\n");
                       textView.append("Сообщение: " + message + "\n\n");
 
                   }
